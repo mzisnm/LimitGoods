@@ -1,0 +1,58 @@
+name: LimitGoods
+version: 1.0
+description: You can prohibit the use of something.
+author: mazhe
+website: none
+ 
+main: com.mzisnm.limitGoods.LimitGoodsPlugin
+commands:
+  mz.limit:
+    description: Controls LimitGoods.
+    usage: |
+           /<command> enable <scope> - Enable the scope's limit.
+           /<command> disable <scope> - Disable the scope's limit.
+           /<command> mode <scope> <1|2|3|4|ban|allow|banFirst|allowFirst> - Toggle the mode,1=ban,2=allow ect..
+           /<command> ban <scope> <goods> - Override ban goods list.
+           /<command> ban add <scope> <goods> - Add to ban goods list.
+           /<command> ban delete <scope> <goods> - Delete from ban goods list.
+           /<command> ban clear <scope> <goods> - Clear ban goods list.
+           /<command> allow <scope> <goods> - Override allow goods list.
+           /<command> allow add <scope> <goods> - Add to allow goods list.
+           /<command> allow delete <scope> <goods> - Delete from allow goods list.
+           /<command> allow clear <scope> <goods> - Clear allow goods list.
+           /<command> scope create <scope> <x>,<y> <l> <w> - Create a scope with name,center's xy,length and width.
+           /<command> scope create <scope> <x>,<y> <x>,<y> - Create a scope with the xy of the rectangle diagonal.
+           /<command> scope delete <scope> - Delete a scope with the name.
+           
+permissions:
+  mz.limit.*:
+    description: Gives access to all limit functions
+    children:
+      mz.limit.enable: true
+      mz.limit.disable: true
+      mz.limit.mode: true
+      mz.limit.ban: true
+      mz.limit.allow: true
+      mz.limit.scope.create: true
+      mz.limit.scope.delete: true
+  mz.limit.enable:
+    description: Allows /mz.limit enable command
+    default: true
+  mz.limit.disable:
+    description: Allows /mz.limit disable command
+    default: true
+  mz.limit.mode:
+    description: Allows /mz.limit mode command
+    default: true
+  mz.limit.ban:
+    description: Allows /mz.limit ban command
+    default: true
+  mz.limit.allow:
+    description: Allows /mz.limit allow command
+    default: true
+  mz.limit.scope.create:
+    description: Allows /mz.limit scope create command
+    default: true
+  mz.limit.scope.delete:
+    description: Allows /mz.limit scope delete command
+    default: true
