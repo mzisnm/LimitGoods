@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
  * @version 
  * ban/allow/both/banFirst/allowFirst
  */
-public enum Mode {
+public enum ModeEnum {
 	/**
 	 * only validate banGoods
 	 */
@@ -28,28 +28,32 @@ public enum Mode {
 	ERROR(5);
 	
 	private int mode;
-	public int getMode() {
+	public int getIntValue() {
 		return mode;
 	}
 	
-	private Mode(int mode){
+	private ModeEnum(int mode){
 		this.mode = mode;
 	}
-	public Mode getMode(String mode){
+	public static ModeEnum getMode(String mode){
 		if(StringUtils.isBlank(mode)){
 			return ERROR;
 		}
 		try {
-			return Mode.valueOf(mode.toUpperCase());
+			return getMode(Integer.valueOf(mode));
+		} catch (NumberFormatException e1) {
+		}
+		try {
+			return ModeEnum.valueOf(mode.toUpperCase());
 		} catch (Exception e) {
 			return ERROR;
 		}
 	}
-	public int getIntMode(String mode){
-		return getMode(mode).getMode();
+	public static int getIntMode(String mode){
+		return getMode(mode).getIntValue();
 	}
-	public Mode getMode(int mode){
-		for (Mode _mode : Mode.values()) {
+	public static ModeEnum getMode(int mode){
+		for (ModeEnum _mode : ModeEnum.values()) {
 			if(_mode.mode==mode){
 				return _mode;
 			}

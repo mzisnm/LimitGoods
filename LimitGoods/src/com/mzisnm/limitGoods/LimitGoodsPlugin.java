@@ -1,5 +1,8 @@
 package com.mzisnm.limitGoods;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -9,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  *
  */
 public final class LimitGoodsPlugin extends JavaPlugin{
+	private Set<Rule> rules = new HashSet<Rule>();
 	
 	@Override
 	public void onEnable() {
@@ -19,5 +23,25 @@ public final class LimitGoodsPlugin extends JavaPlugin{
 	public void onDisable() {
 		getLogger().info("LimitGoods onDisable!");
 	}
-	
+	public Set<Rule> getRules() {
+		return rules;
+	}
+	public boolean addRule(Rule rule){
+		if(rule==null || rules.contains(rule)){
+			return false;
+		}
+		rules.add(rule);
+		return true;
+	}
+	public Rule getRuleByName(String name){
+		if(null==name){
+			return null;
+		}
+		for(Rule _rule: rules){
+			if(name.endsWith(_rule.getName())){
+				return _rule;
+			}
+		}
+		return null;
+	}
 }
