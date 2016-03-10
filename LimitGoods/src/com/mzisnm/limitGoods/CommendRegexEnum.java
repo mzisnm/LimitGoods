@@ -15,11 +15,11 @@ public enum CommendRegexEnum {
 	BAN("^ban "+Constant.scope+" "+Constant.goods+"$","mz.limit.ban"),
 	BANADD("^ban add "+Constant.scope+" "+Constant.goods+"$","mz.limit.ban"),
 	BANDELETE("^ban delete "+Constant.scope+" "+Constant.goods+"$","mz.limit.ban"),
-	BANCLEAR("^ban clear "+Constant.scope+" "+Constant.goods+"$","mz.limit.ban"),
+	BANCLEAR("^ban clear "+Constant.scope+"$","mz.limit.ban"),
 	ALLOW("^allow "+Constant.scope+" "+Constant.goods+"$","mz.limit.allow"),
 	ALLOWADD("^allow add "+Constant.scope+" "+Constant.goods+"$","mz.limit.allow"),
 	ALLOWDELETE("^allow delete "+Constant.scope+" "+Constant.goods+"$","mz.limit.allow"),
-	ALLOWCLEAR("^allow clear "+Constant.scope+" "+Constant.goods+"$","mz.limit.allow"),
+	ALLOWCLEAR("^allow clear "+Constant.scope+"$","mz.limit.allow"),
 	SCOPECREATE1("^scope create "+Constant.scope+" \\d+,\\d+ \\d+ \\d+$","mz.limit.scope.create"),
 	SCOPECREATE2("^scope create "+Constant.scope+" \\d+,\\d+ \\d+,\\d+$","mz.limit.scope.create"),
 	SCOPEDELETE("^scope delete "+Constant.scope+"$","mz.limit.scope.delete");

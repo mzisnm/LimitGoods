@@ -15,11 +15,11 @@ commands:
            /<command> ban <scope> <goods> - Override ban goods list.
            /<command> ban add <scope> <goods> - Add to ban goods list.
            /<command> ban delete <scope> <goods> - Delete from ban goods list.
-           /<command> ban clear <scope> <goods> - Clear ban goods list.
+           /<command> ban clear <scope> - Clear ban goods list.
            /<command> allow <scope> <goods> - Override allow goods list.
            /<command> allow add <scope> <goods> - Add to allow goods list.
            /<command> allow delete <scope> <goods> - Delete from allow goods list.
-           /<command> allow clear <scope> <goods> - Clear allow goods list.
+           /<command> allow clear <scope> - Clear allow goods list.
            /<command> scope create <scope> <x>,<y> <l> <w> - Create a scope with name,center's xy,length and width.
            /<command> scope create <scope> <x>,<y> <x>,<y> - Create a scope with the xy of the rectangle diagonal.
            /<command> scope delete <scope> - Delete a scope with the name.

@@ -81,4 +81,16 @@ public class Rule {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public Set<Material> getBanGoods() {
+		return banGoods;
+	}
+	public void setBanGoods(Set<Material> banGoods) {
+		this.banGoods = banGoods;
+	}
+	public Set<Material> getAllowGoods() {
+		return allowGoods;
+	}
+	public void setAllowGoods(Set<Material> allowGoods) {
+		this.allowGoods = allowGoods;
+	}
 }

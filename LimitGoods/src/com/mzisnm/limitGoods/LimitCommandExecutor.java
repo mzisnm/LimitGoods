@@ -1,8 +1,11 @@
 package com.mzisnm.limitGoods;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,7 +26,7 @@ public class LimitCommandExecutor implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		String arg = StringUtils.join(args,",").toLowerCase();
+		String arg = StringUtils.join(args," ").toLowerCase();
 		for (CommendRegexEnum _commend : CommendRegexEnum.values()) {
 			if(Pattern.matches(_commend.getRegex(), arg)){
 				if(sender.hasPermission(_commend.getPermission())){
@@ -115,11 +118,14 @@ public class LimitCommandExecutor implements CommandExecutor {
 			sender.sendMessage("the scope '" + args[1] + "' does not exist!");
 			return false;
 		}
-		String[] goods = args[2].split(",");
-		for (String _str : goods) {
-			
+		Set<Material> _set = switchToMaterial(args[2]);
+		if(_set==null){
+			sender.sendMessage("the goods '" + args[2] + "' does not right!");
+			return false;
 		}
-		return false;
+		_rule.getBanGoods().clear();
+		_rule.getBanGoods().addAll(_set);
+		return true;
 	}
 
 	private boolean doBanAdd(CommandSender sender, Command cmd, String label, String[] args) {
@@ -128,7 +134,13 @@ public class LimitCommandExecutor implements CommandExecutor {
 			sender.sendMessage("the scope '" + args[2] + "' does not exist!");
 			return false;
 		}
-		return false;
+		Set<Material> _set = switchToMaterial(args[3]);
+		if(_set==null){
+			sender.sendMessage("the goods '" + args[3] + "' does not right!");
+			return false;
+		}
+		_rule.getBanGoods().addAll(_set);
+		return true;
 	}
 
 	private boolean doBanDelete(CommandSender sender, Command cmd, String label, String[] args) {
@@ -137,7 +149,13 @@ public class LimitCommandExecutor implements CommandExecutor {
 			sender.sendMessage("the scope '" + args[2] + "' does not exist!");
 			return false;
 		}
-		return false;
+		Set<Material> _set = switchToMaterial(args[3]);
+		if(_set==null){
+			sender.sendMessage("the goods '" + args[3] + "' does not right!");
+			return false;
+		}
+		_rule.getBanGoods().removeAll(_set);
+		return true;
 	}
 
 	private boolean doBanClear(CommandSender sender, Command cmd, String label, String[] args) {
@@ -146,7 +164,8 @@ public class LimitCommandExecutor implements CommandExecutor {
 			sender.sendMessage("the scope '" + args[2] + "' does not exist!");
 			return false;
 		}
-		return false;
+		_rule.getBanGoods().clear();
+		return true;
 	}
 
 	private boolean doAllow(CommandSender sender, Command cmd, String label, String[] args) {
@@ -155,7 +174,14 @@ public class LimitCommandExecutor implements CommandExecutor {
 			sender.sendMessage("the scope '" + args[1] + "' does not exist!");
 			return false;
 		}
-		return false;
+		Set<Material> _set = switchToMaterial(args[2]);
+		if(_set==null){
+			sender.sendMessage("the goods '" + args[2] + "' does not right!");
+			return false;
+		}
+		_rule.getAllowGoods().clear();
+		_rule.getAllowGoods().addAll(_set);
+		return true;
 	}
 
 	private boolean doAllowAdd(CommandSender sender, Command cmd, String label, String[] args) {
@@ -164,7 +190,13 @@ public class LimitCommandExecutor implements CommandExecutor {
 			sender.sendMessage("the scope '" + args[2] + "' does not exist!");
 			return false;
 		}
-		return false;
+		Set<Material> _set = switchToMaterial(args[3]);
+		if(_set==null){
+			sender.sendMessage("the goods '" + args[3] + "' does not right!");
+			return false;
+		}
+		_rule.getAllowGoods().addAll(_set);
+		return true;
 	}
 
 	private boolean doAllowDelete(CommandSender sender, Command cmd, String label, String[] args) {
@@ -173,7 +205,13 @@ public class LimitCommandExecutor implements CommandExecutor {
 			sender.sendMessage("the scope '" + args[2] + "' does not exist!");
 			return false;
 		}
-		return false;
+		Set<Material> _set = switchToMaterial(args[3]);
+		if(_set==null){
+			sender.sendMessage("the goods '" + args[3] + "' does not right!");
+			return false;
+		}
+		_rule.getAllowGoods().removeAll(_set);
+		return true;
 	}
 
 	private boolean doAllowClear(CommandSender sender, Command cmd, String label, String[] args) {
@@ -182,15 +220,17 @@ public class LimitCommandExecutor implements CommandExecutor {
 			sender.sendMessage("the scope '" + args[2] + "' does not exist!");
 			return false;
 		}
-		return false;
+		_rule.getAllowGoods().clear();
+		return true;
 	}
 
 	private boolean doScopeCreate1(CommandSender sender, Command cmd, String label, String[] args) {
 		Rule _rule = plugin.getRuleByName(args[2]);
-		if(null==_rule){
-			sender.sendMessage("the scope '" + args[2] + "' does not exist!");
+		if(null!=_rule){
+			sender.sendMessage("the scope '" + args[2] + "' does already exist!");
 			return false;
 		}
+		
 		return false;
 	}
 
@@ -212,4 +252,22 @@ public class LimitCommandExecutor implements CommandExecutor {
 		return false;
 	}
 	
+	private Set<Material> switchToMaterial(String goods){
+		Set<Material> _set = new HashSet<Material>();
+		String[] _strs = goods.split(",");
+		for (String _str : _strs) {
+			Material _material = null;
+			if(Pattern.matches("^\\d+$", _str)){
+				_material = Material.getMaterial(Integer.valueOf(_str));
+			}else {
+				_material = Material.getMaterial(_str);
+			}
+			if(null==_material){
+				return null;
+			}else{
+				_set.add(_material);
+			}
+		}
+		return _set;
+	}
 }
